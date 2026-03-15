@@ -1,6 +1,14 @@
 import readline from "readline";
 import process from "process";
-import { up, cd, ls, csvToJson, jsonToCsv, count, hash } from "./task-2_commands.js";
+import { logStats } from "./workers/logWorker.js";
+import { ls, cd, up } from "./navigation.js";
+import { csvToJson } from "./commands/csvToJson.js";
+import { jsonToCsv } from "./commands/jsonToCsv.js";
+import { count } from "./commands/count.js";
+import { hash } from "./commands/hash.js";
+import { hashCompare } from './commands/hashCompare.js';
+import { encrypt } from './commands/encrypt.js';
+import { decrypt } from './commands/decrypt.js';
 
 console.log("Welcome to Data Processing CLI!");
 console.log("Current working directory:", process.cwd());
@@ -47,6 +55,18 @@ rl.on("line", async (line) => {
         break;
       case "hash":
         await hash(args);
+        break;
+      case "hash-compare":
+        await hashCompare(args);
+        break;
+      case "encrypt":
+        await encrypt(args);
+        break;
+      case "decrypt":
+        await decrypt(args);
+        break;
+      case "log-stats":
+        await logStats(args);
         break;
       default:
         console.error(`Unknown command: ${command}`);
