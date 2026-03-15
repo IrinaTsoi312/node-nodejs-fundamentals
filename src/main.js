@@ -1,6 +1,6 @@
 import readline from "readline";
 import process from "process";
-import { up, cd, ls, csvToJson } from "./task-2_commands.js";
+import { up, cd, ls, csvToJson, jsonToCsv, count, hash } from "./task-2_commands.js";
 
 console.log("Welcome to Data Processing CLI!");
 console.log("Current working directory:", process.cwd());
@@ -37,14 +37,22 @@ rl.on("line", async (line) => {
         await ls();
         break;
       case "csv-to-json":
-        await csvToJson();
+        await csvToJson(args);
+        break;
+      case "json-to-csv":
+        await jsonToCsv(args);
+        break;
+      case "count":
+        await count(args);
+        break;
+      case "hash":
+        await hash(args);
         break;
       default:
         console.error(`Unknown command: ${command}`);
         break;
     }
 
-    console.log("Current working directory:", process.cwd());
   } catch (err) {
     console.error("Error:", err.message || err);
   }
@@ -53,7 +61,6 @@ rl.on("line", async (line) => {
 });
 
 rl.on("close", () => {
-  console.log("Thank you for using Data Processing CLI!");
   process.exit(0);
 });
 
